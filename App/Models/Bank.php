@@ -1,10 +1,12 @@
 <?php
-namespace models;
+namespace Models;
 
 class Bank{
     private User $users;
-
-    public function __construct(){
+    private string $name;
+    
+    public function __construct(string $bankName){
+        $this->name = $bankName;
         $users = array();
     }
 

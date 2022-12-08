@@ -1,6 +1,6 @@
 <?php
-namespace models;
-// interface 
+namespace Models;
+
 enum Type{
     case Business;
     case Individual;
@@ -35,7 +35,7 @@ class User{
         $this->email = $email;
     }
     
-    public function setAuthorization(Authoriation $authorization){
+    public function setAuthorization(Authorization $authorization){
         $this->authorization = $authorization;
     }
     
@@ -46,12 +46,19 @@ class User{
     public function getAuthorization(){
         return $this->authorization;
     }
+
+    public function getName(){
+        return $this->name;
+    }
+
+    public function getEmail(){
+        return $this->email;
+    }
     
-    public static function authenticate(string $password){
+    public function authenticate(string $password){
         if($password == $this->password){
             return true;
         }
-
         return false;
     }
 }
