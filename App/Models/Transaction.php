@@ -9,8 +9,14 @@ enum TransactionType{
 abstract class Transaction{
     private TransactionType $type;
     private int $amount;
+    private int $timestamp;
 
-    public abstract function getNote();
+    public function __construct(TransactionType $type){
+        $this->timestamp = time();
+        $this->type = $type;
+    }
+
+    public abstract function getNote(): string;
 
     public function setTransactionType($type){
         $this->type = $type;
@@ -23,6 +29,9 @@ abstract class Transaction{
     }
     public function getAmount(){
         return $this->amount;
+    }
+    public function getTimestamp(){
+        return $this->timestamp;
     }
 
 }

@@ -8,15 +8,15 @@ enum AccountType{
     case Individual;
 }
 
-class Accounts {
+class Account {
     private string $account_number;
     private int $balance;
     private AccountType $type;
     private Card $card;
-    private $transactions = array();
+    private $transactions;
     
     public function __construct(string $account_number){
-        $this->cards = array();
+        $this->transactions = array();
         $this->account_number = $account_number;
     }
 
@@ -53,6 +53,33 @@ class Accounts {
         $this->balance -= $amount;
         array_push($this->transactions, $newTransaction);
     }
+
+    public function pay(Account $toAccount, int $amount, string $invoice, string $note): void{
+        // Check if enough balance
+        if($this->balance <= $amount)
+            throw new Exception("Insufficient Balance");
+        
+        $newTransaction = new Payment($amount, $toAccount, $invoice, $note);
+        $this->balance -= $amount;
+        array_push($this->transactions, $newTransaction);
+    }
+
+    public function transfer(Account $toAccount, int $amount, $note): void{
+        // Check if enough balance
+        if($this->balance <= $amount)
+            throw new Exception("Insufficient Balance");
+        
+        $newTransaction = new Transfer($amount, $toAccount, $note);
+        $this->balance -= $amount;
+        array_push($this->transactions, $newTransaction);
+    }
+
+    public function store(int $amount): void{
+        $newTransaction = new Deposit($amount);
+        $this->balance += $amount;
+        array_push($this->transactions, $newTransaction);
+    }
+
 
 
 }
