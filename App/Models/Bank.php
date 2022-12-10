@@ -4,6 +4,7 @@ namespace App\Models;
 class Bank{
     private $users;
     private string $name;
+    private $atms;
     
     public function __construct(string $bankName){
         $this->name = $bankName;
