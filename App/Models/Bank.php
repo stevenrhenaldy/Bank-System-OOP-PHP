@@ -10,22 +10,24 @@ class Bank{
         $users = array();
     }
 
-    public function addUser(User $user){
+    public function getBankName(): string{
+        return $this->name;
+    }
+
+    public function addUser(User $user): void{
         array_push($this->users,$user);
     }
 
-    public function getAllUsers(){
+    public function getAllUsers(): array{
         return $this->users;
     }
 
-    public function getUser($id){
-        if(!is_null($id)){
-            return $this->users[$id];
-        }
+    public function getUser($id): User|null{
+        return $this->users[$id];
     }
 
-    public function searchUser(?string $username = null, ?Authorization $authorization = null, ?string $email = null){
-        // fulltext search
+    public function searchUser(?string $username = null, ?Authorization $authorization = null, ?string $email = null): array|null{
+        // Fulltext search
         $result = array();
         foreach ($this->users as $u) {
             if(!is_null($username)){

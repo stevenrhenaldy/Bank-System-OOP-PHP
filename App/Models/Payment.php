@@ -18,7 +18,7 @@ class Payment extends Transaction{
         return $this->from_account;
     }
 
-    public function getToAccount(): Account{
+    public function getToAccount(): Account {
         return $this->to_account;
     }
 
@@ -26,7 +26,7 @@ class Payment extends Transaction{
         return $this->getInvoice;
     }
 
-    public function getNote(): string{
+    public function getNote(): string {
         return "Payment to Invoice: {$this->invoice}";
     }
 

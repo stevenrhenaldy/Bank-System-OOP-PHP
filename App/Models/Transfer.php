@@ -14,15 +14,15 @@ class Transfer extends Transaction{
         parent::__construct($type);
     }
 
-    public function getFromAccount(): Account{
+    public function getFromAccount(): Account {
         return $this->from_account;
     }
 
-    public function getToAccount(): Account{
+    public function getToAccount(): Account {
         return $this->to_account;
     }
 
-    public function getNote(): string{
+    public function getNote(): string {
         return $this->note;
     }
 }

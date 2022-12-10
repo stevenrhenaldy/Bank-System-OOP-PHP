@@ -13,44 +13,44 @@ class User{
     private string $email;
     private Authorization $authorization;
 
-    public function setUsername(string $username): void{
+    public function setUsername(string $username): void {
         $this->$username = $username;
     }
     
-    public function setPassword(string $password) : void{
+    public function setPassword(string $password) : void {
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
         $this->$password = $hashed_password;
     }
     
-    public function setName(string $name): void{
+    public function setName(string $name): void {
         $this->name = $name;
     }
 
-    public function setEmail(string $email): void{
+    public function setEmail(string $email): void {
         $this->email = $email;
     }
     
-    public function setAuthorization(Authorization $authorization): void{
+    public function setAuthorization(Authorization $authorization): void {
         $this->authorization = $authorization;
     }
     
-    public function getUsername(): string{
+    public function getUsername(): string {
         return $this->username;
     }
     
-    public function getAuthorization(): Authorization{
+    public function getAuthorization(): Authorization {
         return $this->authorization;
     }
 
-    public function getName(): string{
+    public function getName(): string {
         return $this->name;
     }
 
-    public function getEmail(): string{
+    public function getEmail(): string {
         return $this->email;
     }
     
-    public function authenticate(string $password): bool{
+    public function authenticate(string $password): bool {
         if($password == $this->password){
             return true;
         }

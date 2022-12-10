@@ -24,7 +24,7 @@ abstract class Transaction{
     public function getTransactionType(): TransactionType {
         return $this->type;
     }
-    public function setAmount($amount): void {
+    public function setAmount(int $amount): void {
         $this->amount = $amount;
     }
     public function getAmount(): int {

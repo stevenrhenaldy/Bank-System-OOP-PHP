@@ -24,11 +24,11 @@ class Account {
         return $this->account_number;
     }
 
-    public function setCard(Card $card){
+    public function setCard(Card $card): void {
         $this->card = $card;
     }
 
-    public function getCard(){
+    public function getCard(): Card {
         return $this->card;
     }
 
@@ -36,7 +36,7 @@ class Account {
         return $this->balance;
     }
 
-    public function setType(AccountType $type){
+    public function setType(AccountType $type): void {
         $this->type = $type;
     }
 
@@ -44,7 +44,7 @@ class Account {
         return $this->type;
     }
 
-    public function withdraw(int $amount): void{
+    public function withdraw(int $amount): void {
         // Check for insufficient balance
         if($this->balance <= $amount)
             throw new Exception("Insufficient Balance");
@@ -54,49 +54,49 @@ class Account {
         array_push($this->transactions, $newTransaction);
     }
 
-    public function pay(Account $toAccount, int $amount, string $invoice): void{
+    public function pay(Account $to_account, int $amount, string $invoice): void {
         // Check for insufficient balance
         if($this->balance <= $amount)
             throw new Exception("Insufficient Balance");
         
-        $fromAccount = $this;
-        $newTransaction = new Payment($amount, $fromAccount, $toAccount, $invoice, TransactionType::Send);
+        $from_account = $this;
+        $newTransaction = new Payment($amount, $from_account, $to_account, $invoice, TransactionType::Send);
         // Let the other end to receive the payment
-        $toAccount->receivePayment($fromAccount, $amount, $invoice);
+        $to_account->receivePayment($from_account, $amount, $invoice);
         $this->balance -= $amount;
         array_push($this->transactions, $newTransaction);
     }
 
-    public function transfer(Account $toAccount, int $amount, $note): void{
+    public function transfer(Account $to_account, int $amount, $note): void {
         // Check for insufficient balance
         if($this->balance <= $amount)
             throw new Exception("Insufficient Balance");
         
-        $fromAccount = $this;
-        $newTransaction = new Transfer($amount, $fromAccount, $toAccount, $note, TransactionType::Send);
+        $from_account = $this;
+        $newTransaction = new Transfer($amount, $from_account, $to_account, $note, TransactionType::Send);
         // Let the other end to receive the transfer
-        $toAccount->receiveTransfer($fromAccount, $amount, $note);
+        $to_account->receiveTransfer($from_account, $amount, $note);
         $this->balance -= $amount;
         array_push($this->transactions, $newTransaction);
     }
 
-    public function deposit(int $amount): void{
+    public function deposit(int $amount): void {
         $newTransaction = new Deposit($amount);
         $this->balance += $amount;
         array_push($this->transactions, $newTransaction);
     }
 
     // Internal Methods
-    private function receivePayment(Account $fromAccount, int $amount, string $invoice): void {
-        $toAccount = $this;
-        $newTransaction = new Payment($amount, $fromAccount, $toAccount, $invoice, TransactionType::Receive);
+    private function receivePayment(Account $from_account, int $amount, string $invoice): void {
+        $to_account = $this;
+        $newTransaction = new Payment($amount, $from_account, $to_account, $invoice, TransactionType::Receive);
         $this->balance += $amount;
         array_push($this->transactions, $newTransaction);
     }
 
-    private function receiveTransfer(Account $fromAccount, int $amount, $note): void{
-        $toAccount = $this;
-        $newTransaction = new Transfer($amount, $fromAccount, $toAccount, $note, TransactionType::Receive);
+    private function receiveTransfer(Account $from_account, int $amount, $note): void {
+        $to_account = $this;
+        $newTransaction = new Transfer($amount, $from_account, $to_account, $note, TransactionType::Receive);
         $this->balance += $amount;
         array_push($this->transactions, $newTransaction);
     }
