@@ -6,12 +6,12 @@ class Transfer extends Transaction{
     private Account $from_account;
     private Account $to_account;
 
-    public function __construct(int $amount, Account $fromAccount, Account $toAccount, string $note){
+    public function __construct(int $amount, Account $fromAccount, Account $toAccount, string $note, TransactionType $type){
         $this->amount = $amount;
         $this->note = $note;
         $this->from_account = $fromAccount;
         $this->to_account = $toAccount;
-        parent::__construct(TransactionType::Send);
+        parent::__construct($type);
     }
 
     public function getFromAccount(): Account{

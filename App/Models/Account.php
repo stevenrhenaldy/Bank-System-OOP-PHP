@@ -60,7 +60,9 @@ class Account {
             throw new Exception("Insufficient Balance");
         
         $fromAccount = $this;
-        $newTransaction = new Payment($amount, $fromAccount, $toAccount, $invoice);
+        $newTransaction = new Payment($amount, $fromAccount, $toAccount, $invoice, TransactionType::Send);
+        // Let the other end to receive the payment
+        $toAccount->receivePayment($fromAccount, $amount, $invoice);
         $this->balance -= $amount;
         array_push($this->transactions, $newTransaction);
     }
@@ -71,13 +73,30 @@ class Account {
             throw new Exception("Insufficient Balance");
         
         $fromAccount = $this;
-        $newTransaction = new Transfer($amount, $fromAccount, $toAccount, $note);
+        $newTransaction = new Transfer($amount, $fromAccount, $toAccount, $note, TransactionType::Send);
+        // Let the other end to receive the transfer
+        $toAccount->receiveTransfer($fromAccount, $amount, $note);
         $this->balance -= $amount;
         array_push($this->transactions, $newTransaction);
     }
 
     public function deposit(int $amount): void{
         $newTransaction = new Deposit($amount);
+        $this->balance += $amount;
+        array_push($this->transactions, $newTransaction);
+    }
+
+    // Internal Methods
+    private function receivePayment(Account $fromAccount, int $amount, string $invoice): void {
+        $toAccount = $this;
+        $newTransaction = new Payment($amount, $fromAccount, $toAccount, $invoice, TransactionType::Receive);
+        $this->balance += $amount;
+        array_push($this->transactions, $newTransaction);
+    }
+
+    private function receiveTransfer(Account $fromAccount, int $amount, $note): void{
+        $toAccount = $this;
+        $newTransaction = new Transfer($amount, $fromAccount, $toAccount, $note, TransactionType::Receive);
         $this->balance += $amount;
         array_push($this->transactions, $newTransaction);
     }
