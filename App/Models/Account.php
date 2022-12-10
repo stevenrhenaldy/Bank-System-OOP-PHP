@@ -45,7 +45,7 @@ class Account {
     }
 
     public function withdraw(int $amount): void{
-        // Check if enough balance
+        // Check for insufficient balance
         if($this->balance <= $amount)
             throw new Exception("Insufficient Balance");
         
@@ -54,32 +54,32 @@ class Account {
         array_push($this->transactions, $newTransaction);
     }
 
-    public function pay(Account $toAccount, int $amount, string $invoice, string $note): void{
-        // Check if enough balance
+    public function pay(Account $toAccount, int $amount, string $invoice): void{
+        // Check for insufficient balance
         if($this->balance <= $amount)
             throw new Exception("Insufficient Balance");
         
-        $newTransaction = new Payment($amount, $toAccount, $invoice, $note);
+        $fromAccount = $this;
+        $newTransaction = new Payment($amount, $fromAccount, $toAccount, $invoice);
         $this->balance -= $amount;
         array_push($this->transactions, $newTransaction);
     }
 
     public function transfer(Account $toAccount, int $amount, $note): void{
-        // Check if enough balance
+        // Check for insufficient balance
         if($this->balance <= $amount)
             throw new Exception("Insufficient Balance");
         
-        $newTransaction = new Transfer($amount, $toAccount, $note);
+        $fromAccount = $this;
+        $newTransaction = new Transfer($amount, $fromAccount, $toAccount, $note);
         $this->balance -= $amount;
         array_push($this->transactions, $newTransaction);
     }
 
-    public function store(int $amount): void{
+    public function deposit(int $amount): void{
         $newTransaction = new Deposit($amount);
         $this->balance += $amount;
         array_push($this->transactions, $newTransaction);
     }
-
-
 
 }

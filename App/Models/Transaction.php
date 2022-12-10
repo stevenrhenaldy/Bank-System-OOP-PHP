@@ -18,19 +18,19 @@ abstract class Transaction{
 
     public abstract function getNote(): string;
 
-    public function setTransactionType($type){
+    public function setTransactionType(TransactionType $type): void {
         $this->type = $type;
     }
-    public function getTransactionType(){
+    public function getTransactionType(): TransactionType {
         return $this->type;
     }
-    public function setAmount($amount){
+    public function setAmount($amount): void {
         $this->amount = $amount;
     }
-    public function getAmount(){
+    public function getAmount(): int {
         return $this->amount;
     }
-    public function getTimestamp(){
+    public function getTimestamp(): int {
         return $this->timestamp;
     }
 
