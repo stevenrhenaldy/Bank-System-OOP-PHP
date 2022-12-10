@@ -24,7 +24,13 @@ class Atm{
             throw new Exception("Insufficient ATM balance to withdraw");
         }
 
-        $card->getAccount()->withdraw($amount);
+        try{
+            $card->getAccount()->withdraw($amount);
+        }catch(Exception $e){
+            throw $e;
+        }
+
+        $this->atm_balance -= $amount;
     }
 
     public function deposit(Card $card, string $pin, int $amount): void {
@@ -32,7 +38,13 @@ class Atm{
             throw new Exception("Wrong PIN!");
         }
 
-        $card->getAccount()->deposit($amount);
+        try{
+            $card->getAccount()->deposit($amount);
+        }catch(Exception $e){
+            throw $e;
+        }
+
+        $this->atm_balance += $amount;
     }
 
     public function transfer(Card $card, string $pin, $amount, $to_account, $note): void {
@@ -40,6 +52,11 @@ class Atm{
             throw new Exception("Wrong PIN!");
         }
 
-        $card->getAccount()->transfer($to_account, $amount, $note);
+        try{
+            $card->getAccount()->transfer($to_account, $amount, $note);
+        }catch(Exception $e){
+            throw $e;
+        }
+
     }
 }
