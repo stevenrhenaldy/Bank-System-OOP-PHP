@@ -1,5 +1,5 @@
 <?php
-namespace Models;
+namespace App\Models;
 
 class Withdraw extends Transaction{
 
@@ -8,7 +8,7 @@ class Withdraw extends Transaction{
         parent::__construct(TransactionType::Send);
     }
 
-    public function getNote(): string{
-        return "Withdraw";
+    public function getNote(): string {
+        return "Withdraw: Nt$".$this->amount;
     }
 }

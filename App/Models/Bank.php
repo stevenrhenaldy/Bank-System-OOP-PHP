@@ -1,5 +1,5 @@
 <?php
-namespace Models;
+namespace App\Models;
 
 class Bank{
     private $users;

@@ -1,6 +1,5 @@
 <?php
-namespace Models;
-
+namespace App\Models;
 use Exception;
 
 enum AccountType{
@@ -15,8 +14,10 @@ class Account {
     private Card $card;
     private $transactions;
     
-    public function __construct(string $account_number){
+    public function __construct(string $account_number, AccountType $type){
         $this->transactions = array();
+        $this->balance = 0;
+        $this->type = $type;
         $this->account_number = $account_number;
     }
 

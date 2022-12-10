@@ -1,5 +1,5 @@
 <?php
-namespace Models;
+namespace App\Models;
 
 class Payment extends Transaction{
     private string $invoice;

@@ -1,5 +1,5 @@
 <?php
-namespace Models;
+namespace App\Models;
 
 enum Division{
     case General_Manager;

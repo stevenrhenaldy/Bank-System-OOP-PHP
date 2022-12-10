@@ -1,5 +1,5 @@
 <?php
-namespace Models;
+namespace App\Models;
 
 class Deposit extends Transaction{
 
@@ -9,6 +9,6 @@ class Deposit extends Transaction{
     }
 
     public function getNote(): string{
-        return "Deposit";
+        return "Deposit: Nt$".$this->amount;
     }
 }
