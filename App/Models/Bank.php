@@ -16,12 +16,12 @@ class Bank{
         return $this->name;
     }
     
-    public function addATM(string $location, int $initial_balance){
+    public function addATM(string $location, int $initial_balance): void{
         $atm = new Atm($location, $initial_balance);
         array_push($atms, $atm);
     }
 
-    public function getAllATM(){
+    public function getAllATM(): array{
         return $this->atms;
     }
 
