@@ -8,11 +8,21 @@ class Bank{
     
     public function __construct(string $bankName){
         $this->name = $bankName;
-        $users = array();
+        $this->users = array();
+        $this->atms = array();
     }
 
     public function getBankName(): string{
         return $this->name;
+    }
+    
+    public function addATM(string $location, int $initial_balance){
+        $atm = new Atm($location, $initial_balance);
+        array_push($atms, $atm);
+    }
+
+    public function getAllATM(){
+        return $this->atms;
     }
 
     public function addUser(User $user): void{
