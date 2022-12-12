@@ -29,10 +29,6 @@ class Card{
         return $this->expiry_date;
     }
 
-    public function setexpiryYear(int $expiry_date): void {
-        $this->expiry_year = $expiry_date;
-    }
-
     public function setCVV($cvv): void {
         $this->cvv = $cvv;
     }
